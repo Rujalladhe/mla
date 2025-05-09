@@ -59,13 +59,13 @@ const Sidebar = () => {
             submenu={[
               {
                 label: "Add New Voter",
-                href: "/voter-management/add-new-voter",
-                active: pathname === "/voter-management/add-new-voter",
+                href: "/Dashboard/voter-management/add-new-voter",
+                active: pathname === "/Dashboard/voter-management/add-new-voter",
               },
               {
                 label: "Voter Database",
-                href: "/voter-management/voter-database",
-                active: pathname === "/voter-management/voter-database",
+                href: "/Dashboard/voter-management/voter-database",
+                active: pathname === "/Dashboard/voter-management/voter-database",
               },
             ]}
           />
