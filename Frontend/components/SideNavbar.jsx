@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import SidebarItem from "./SideBarItem";
+import { motion } from "framer-motion";
 
 import { 
   Users, 
@@ -16,13 +17,19 @@ import {
   ShieldCheck, 
   BarChart3,
   Menu,
-  X
+  X,
+  ChevronRight
 } from "lucide-react";
 
 const Sidebar = () => {
   const pathname = usePathname();
   const [expanded, setExpanded] = useState("voter-management");
   const [isOpen, setIsOpen] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleExpand = (itemId) => {
     setExpanded(expanded === itemId ? null : itemId);
@@ -32,26 +39,35 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
 
+  if (!mounted) return null;
+
   return (
     <>
       <button
         onClick={toggleSidebar}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-gray-800 rounded-md text-white"
+        className="lg:hidden fixed top-4 left-4 z-[100] p-2.5 bg-white rounded-xl text-gray-700 shadow-lg hover:bg-gray-50 transition-all duration-300 border border-gray-200"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      <div className={cn(
-        "fixed lg:static h-screen bg-[#1a2234] text-white transition-all duration-300 ease-in-out z-40",
-        isOpen ? "w-64 translate-x-0" : "w-0 -translate-x-full lg:w-64 lg:translate-x-0"
-      )}>
-        <div className="p-4">
-          
+      <motion.div 
+        initial={{ x: -300 }}
+        animate={{ x: isOpen ? 0 : -300 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className={cn(
+          "fixed lg:relative h-screen bg-white text-gray-700 transition-all duration-300 ease-in-out z-[90] shadow-lg border-r border-gray-200",
+          isOpen ? "w-72 translate-x-0" : "w-0 -translate-x-full lg:w-72 lg:translate-x-0"
+        )}
+      >
+        <div className="p-6 border-b border-gray-200">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+            MLA Dashboard
+          </h2>
         </div>
 
-        <div className="flex-1 overflow-auto py-2">
+        <div className="flex-1 overflow-auto py-4 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
           <SidebarItem
-            icon={<Users size={20} />}
+            icon={<Users size={20} className="text-blue-500" />}
             label="Voter Management"
             id="voter-management"
             expanded={expanded === "voter-management"}
@@ -71,7 +87,7 @@ const Sidebar = () => {
           />
 
           <SidebarItem
-            icon={<Building2 size={20} />}
+            icon={<Building2 size={20} className="text-emerald-500" />}
             label="Office Management"
             id="office-management"
             expanded={expanded === "office-management"}
@@ -81,7 +97,7 @@ const Sidebar = () => {
           />
 
           <SidebarItem
-            icon={<FileText size={20} />}
+            icon={<FileText size={20} className="text-purple-500" />}
             label="Public Grievance"
             id="public-grievance"
             expanded={expanded === "public-grievance"}
@@ -91,7 +107,7 @@ const Sidebar = () => {
           />
 
           <SidebarItem
-            icon={<UserCheck size={20} />}
+            icon={<UserCheck size={20} className="text-amber-500" />}
             label="Visitor Tracking"
             id="visitor-tracking"
             expanded={expanded === "visitor-tracking"}
@@ -101,7 +117,7 @@ const Sidebar = () => {
           />
 
           <SidebarItem
-            icon={<Landmark size={20} />}
+            icon={<Landmark size={20} className="text-rose-500" />}
             label="Constituency"
             id="constituency"
             expanded={expanded === "constituency"}
@@ -111,7 +127,7 @@ const Sidebar = () => {
           />
 
           <SidebarItem
-            icon={<MessagesSquare size={20} />}
+            icon={<MessagesSquare size={20} className="text-indigo-500" />}
             label="Communication Center"
             id="communication-center"
             expanded={expanded === "communication-center"}
@@ -121,7 +137,7 @@ const Sidebar = () => {
           />
 
           <SidebarItem
-            icon={<ShieldCheck size={20} />}
+            icon={<ShieldCheck size={20} className="text-cyan-500" />}
             label="User Permissions"
             id="user-permissions"
             expanded={expanded === "user-permissions"}
@@ -131,7 +147,7 @@ const Sidebar = () => {
           />
 
           <SidebarItem
-            icon={<BarChart3 size={20} />}
+            icon={<BarChart3 size={20} className="text-teal-500" />}
             label="Reports & Analytics"
             id="reports-analytics"
             expanded={expanded === "reports-analytics"}
@@ -140,7 +156,7 @@ const Sidebar = () => {
             active={pathname === "/reports-analytics"}
           />
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

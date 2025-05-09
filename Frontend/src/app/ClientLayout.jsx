@@ -12,7 +12,7 @@ export default function ClientLayout({ children }) {
       {pathname !== "/" && <Sidebar />}
 
       {/* Main Content Area */}
-      <main className="flex-1 bg-black p-3 overflow-y-auto h-screen">
+      <main className="flex-1 bg-white p-3 overflow-y-auto h-screen">
         {children}
       </main>
     </div>
