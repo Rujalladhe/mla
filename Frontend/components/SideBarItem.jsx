@@ -1,41 +1,44 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
-import { ReactNode } from "react";
-
-
-
 
 const SidebarItem = ({
   icon,
   label,
-  id,
-  expanded,
-  onClick,
   href,
   active,
   submenu,
+  expanded,
+  onClick,
+  id,
 }) => {
-  const hasSubmenu = submenu && submenu.length > 0;
+  const [isHovered, setIsHovered] = useState(false);
 
-  const MainItem = () => (
+  const content = (
     <div
-      onClick={onClick}
       className={cn(
-        "flex items-center px-4 py-3 cursor-pointer transition-colors duration-200",
-        active ? "bg-[#2c3b5a] text-white" : "text-gray-300 hover:bg-[#232e45] hover:text-white"
+        "flex items-center px-3 py-2.5 cursor-pointer transition-all duration-200",
+        active 
+          ? "bg-primary/10 text-primary font-medium" 
+          : "text-muted-foreground hover:bg-primary/5 hover:text-foreground",
+        "rounded-lg"
       )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
     >
-      <div className="mr-3 text-blue-400">{icon}</div>
-      <span className="flex-1">{label}</span>
-      {hasSubmenu && (
+      <div className="flex items-center justify-center w-5 h-5 mr-3">
+        {icon}
+      </div>
+      <span className="flex-1 text-sm">{label}</span>
+      {submenu && (
         <ChevronDown
-          size={18}
           className={cn(
-            "transition-transform duration-200",
-            expanded ? "rotate-180" : ""
+            "w-4 h-4 transition-transform duration-200",
+            expanded ? "transform rotate-180" : ""
           )}
         />
       )}
@@ -43,34 +46,31 @@ const SidebarItem = ({
   );
 
   return (
-    <div className="group">
-      {href && !hasSubmenu ? (
-        <Link href={href}>
-          <MainItem />
+    <div className="mb-0.5">
+      {href ? (
+        <Link href={href} className="block">
+          {content}
         </Link>
       ) : (
-        <MainItem />
+        content
       )}
-
-      {hasSubmenu && expanded && (
-        <div className="overflow-hidden transition-all duration-300 ease-in-out">
-          <div className="pl-10 py-1 bg-[#141b2d]">
-            {submenu.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <div
-                  className={cn(
-                    "py-2 px-4 transition-colors duration-200 flex items-center",
-                    item.active
-                      ? "text-blue-400"
-                      : "text-gray-400 hover:text-white"
-                  )}
-                >
-                  <div className="w-2 h-2 rounded-full bg-blue-400 mr-3"></div>
-                  <span>{item.label}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+      {submenu && expanded && (
+        <div className="mt-1 ml-4 space-y-0.5">
+          {submenu.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className={cn(
+                "block px-3 py-2 text-sm transition-all duration-200",
+                item.active
+                  ? "text-primary font-medium"
+                  : "text-muted-foreground hover:text-foreground",
+                "rounded-lg hover:bg-primary/5"
+              )}
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
       )}
     </div>

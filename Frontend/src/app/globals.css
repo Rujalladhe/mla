@@ -44,15 +44,15 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.75rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.55 0.2 250);
+  --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -85,8 +85,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: oklch(0.55 0.2 250);
+  --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -119,4 +119,67 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Modern UI Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Glass Effect */
+.glass {
+  @apply bg-white/10 backdrop-blur-lg border border-white/20;
+}
+
+.dark .glass {
+  @apply bg-black/10 border-white/10;
+}
+
+/* Modern Card Styles */
+.modern-card {
+  @apply rounded-xl p-6 transition-all duration-300 hover:shadow-lg;
+  background: linear-gradient(
+    135deg,
+    var(--card) 0%,
+    color-mix(in oklch, var(--card) 95%, var(--primary)) 100%
+  );
+}
+
+/* Button Styles */
+.modern-button {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-300;
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    color-mix(in oklch, var(--primary) 90%, var(--accent)) 100%
+  );
+  color: var(--primary-foreground);
+}
+
+.modern-button:hover {
+  @apply shadow-lg transform -translate-y-0.5;
+}
+
+/* Input Styles */
+.modern-input {
+  @apply px-4 py-2 rounded-lg border transition-all duration-300;
+  background: var(--input);
+  border-color: var(--border);
+}
+
+.modern-input:focus {
+  @apply outline-none ring-2;
+  border-color: var(--primary);
+  ring-color: var(--ring);
 }
