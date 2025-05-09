@@ -1,10 +1,13 @@
 "use client";
 
+import { ThemeToggle } from "@/components/ThemeToggle";
 import Sidebar from "../../components/SideNavbar";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
+  const isAuthPage = pathname === "/";
 
   return (
     <div className="flex w-full">
