@@ -66,6 +66,7 @@ const Sidebar = () => {
         </div>
 
         <div className="flex-1 overflow-auto py-4 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
+          {/* Voter Management - Working correctly with submenu */}
           <SidebarItem
             icon={<Users size={20} className="text-blue-500" />}
             label="Voter Management"
@@ -86,74 +87,81 @@ const Sidebar = () => {
             ]}
           />
 
+          {/* Office Management - Fixed with proper structure */}
           <SidebarItem
             icon={<Building2 size={20} className="text-emerald-500" />}
             label="Office Management"
             id="office-management"
             expanded={expanded === "office-management"}
             onClick={() => toggleExpand("office-management")}
-            href="/office-management"
-            active={pathname === "/office-management"}
+            href="/Dashboard/office-management"
+            active={pathname === "/Dashboard/office-management"}
           />
 
+          {/* Public Grievance - Fixed with proper structure */}
           <SidebarItem
             icon={<FileText size={20} className="text-purple-500" />}
             label="Public Grievance"
             id="public-grievance"
             expanded={expanded === "public-grievance"}
             onClick={() => toggleExpand("public-grievance")}
-            href="/public-grievance"
-            active={pathname === "/public-grievance"}
+            href="/Dashboard/public-grievance"
+            active={pathname === "/Dashboard/public-grievance"}
           />
 
+          {/* Visitor Tracking - Fixed with proper structure */}
           <SidebarItem
             icon={<UserCheck size={20} className="text-amber-500" />}
             label="Visitor Tracking"
             id="visitor-tracking"
             expanded={expanded === "visitor-tracking"}
             onClick={() => toggleExpand("visitor-tracking")}
-            href="/visitor-tracking"
-            active={pathname === "/visitor-tracking"}
+            href="/Dashboard/visitor-tracking"
+            active={pathname === "/Dashboard/visitor-tracking"}
           />
 
+          {/* Constituency - Fixed with proper structure */}
           <SidebarItem
             icon={<Landmark size={20} className="text-rose-500" />}
             label="Constituency"
             id="constituency"
             expanded={expanded === "constituency"}
             onClick={() => toggleExpand("constituency")}
-            href="/constituency"
-            active={pathname === "/constituency"}
+            href="/Dashboard/constituency"
+            active={pathname === "/Dashboard/constituency"}
           />
 
+          {/* Communication Center - Fixed with proper structure */}
           <SidebarItem
             icon={<MessagesSquare size={20} className="text-indigo-500" />}
             label="Communication Center"
             id="communication-center"
             expanded={expanded === "communication-center"}
             onClick={() => toggleExpand("communication-center")}
-            href="/communication-center"
-            active={pathname === "/communication-center"}
+            href="/Dashboard/communication-center"
+            active={pathname === "/Dashboard/communication-center"}
           />
 
+          {/* User Permissions - Fixed with proper structure */}
           <SidebarItem
             icon={<ShieldCheck size={20} className="text-cyan-500" />}
             label="User Permissions"
             id="user-permissions"
             expanded={expanded === "user-permissions"}
             onClick={() => toggleExpand("user-permissions")}
-            href="/user-permissions"
-            active={pathname === "/user-permissions"}
+            href="/Dashboard/user-permissions"
+            active={pathname === "/Dashboard/user-permissions"}
           />
 
+          {/* Reports & Analytics - Fixed with proper structure */}
           <SidebarItem
             icon={<BarChart3 size={20} className="text-teal-500" />}
             label="Reports & Analytics"
             id="reports-analytics"
             expanded={expanded === "reports-analytics"}
             onClick={() => toggleExpand("reports-analytics")}
-            href="/reports-analytics"
-            active={pathname === "/reports-analytics"}
+            href="/Dashboard/reports-analytics"
+            active={pathname === "/Dashboard/reports-analytics"}
           />
         </div>
       </motion.div>

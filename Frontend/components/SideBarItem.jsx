@@ -2,20 +2,31 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 
-const SidebarItem = ({ icon, label, href, active, submenu, expanded, onClick }) => {
+const SidebarItem = ({ icon, label, href, active, submenu, expanded, onClick, id }) => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const isActive = active || (href && pathname === href);
+
+  const handleClick = (e) => {
+    if (submenu) {
+      // If has submenu, toggle expansion
+      onClick?.();
+    } else if (href) {
+      // If has href but no submenu, navigate
+      router.push(href);
+    }
+  };
 
   return (
     <div className="px-3 py-2">
       <div
-        onClick={onClick}
+        onClick={handleClick}
         className={cn(
           "flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all duration-200",
           isActive
@@ -52,7 +63,7 @@ const SidebarItem = ({ icon, label, href, active, submenu, expanded, onClick }) 
               href={item.href}
               className={cn(
                 "block px-3 py-2 rounded-lg text-sm transition-all duration-200",
-                item.active
+                pathname === item.href
                   ? "bg-blue-50 text-blue-600 font-medium"
                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               )}
